@@ -23,6 +23,18 @@ const users = {};
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`); // 누가 접속했는지 socket.id로 구분
 
+  // 1. 새로 접속한 유저에게 현재 접속 중인 다른 유저들의 목록을 보내줌
+  const currentUsersList = Object.keys(users).map(id => ({
+      id: id,
+      nickname: users[id]
+  }));
+  // 새로 접속한 이 특정 소켓(socket)에게만 'current users' 이벤트와 함께 유저 목록을 보냄
+  socket.emit('current users', currentUsersList);
+
+  // 2. 모든 다른 클라이언트에게 'user joined' 이벤트를 보내 접속 알림 (기존 코드와 동일)
+  // 이 부분은 set nickname 이벤트 안으로 옮겼으니 그대로 두거나 set nickname 안에서 처리
+  // (기존 코드 위치에 따라 다름 - 지금 코드에서는 set nickname 안에서 처리 중)
+
   // 클라이언트로부터 'set nickname' 이벤트를 받으면
   socket.on('set nickname', (nickname) => {
       // 이미 접속한 유저인지 확인 (같은 닉네임으로 두 번 접속하는 경우 방지 등)
