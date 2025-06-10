@@ -1,0 +1,344 @@
+/* public/common.css 파일 */
+
+/* 기본적인 스타일 (모던한 색상으로 변경) */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #F8F8F8;
+  /* 밝은 회색 배경 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* 좀 더 모던한 폰트 스택 */
+  color: #333;
+  /* 기본 글자색 어둡게 */
+}
+
+/* 메인 채팅 영역과 로그 영역을 감싸는 컨테이너 */
+#chatContainer {
+  display: flex;
+  /* 자식 요소인 #chatDisplay와 #chatLog를 좌우로 배치 */
+  height: 100vh;
+  /* 화면 높이 꽉 채우기 */
+  padding-bottom: 80px;
+  /* 하단 폼 공간 확보 */
+  box-sizing: border-box;
+}
+
+#chatDisplay {
+  flex-grow: 1;
+  /* 남은 공간 최대한 사용 (로그 영역 제외) */
+  display: flex;
+  /* 자식 요소들을 유연하게 배치 */
+  flex-wrap: wrap;
+  /* 요소가 넘치면 다음 줄로 */
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+  align-items: center;
+  /* 세로 중앙 정렬 (초기 배치) */
+  gap: 20px;
+  /* 유저 영역 사이 간격 */
+  padding: 20px;
+  /* 패딩 추가 */
+  overflow-y: auto;
+  /* 내용 많으면 스크롤 */
+}
+
+#chatLog {
+  width: 300px;
+  /* 로그 영역 고정 너비 설정 (원하는 너비로 조절 가능) */
+  background-color: #EAEAEA;
+  /* 로그 영역 배경색 */
+  padding: 15px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  /* 내용 많으면 스크롤 */
+  border-left: 1px solid #ccc;
+  /* 메인 영역과 구분선 */
+  display: flex;
+  /* 내부 요소 배치용 */
+  flex-direction: column;
+  /* 세로 정렬 */
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+  /* 부드러운 전환 효과 */
+}
+
+#chatLog:hover {
+  opacity: 1;
+  /* 마우스 오버 시 불투명도 증가 */
+}
+
+#chatLog h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #555;
+  text-align: center;
+  flex-shrink: 0;
+  /* 스크롤될 때 제목은 고정 */
+}
+
+#chatLog ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  /* 남은 공간 채우기 */
+  overflow-y: auto;
+  /* 로그 메시지 목록 스크롤 */
+}
+
+#chatLog li {
+  padding: 5px 0;
+  border-bottom: 1px dotted #ccc;
+  /* 메시지 구분선 */
+  font-size: 0.9em;
+  color: #444;
+  word-break: break-word;
+}
+
+/* #chatLog 영역의 스크롤바 스타일 */
+#chatLog ul::-webkit-scrollbar {
+  width: 8px;
+  /* 스크롤바의 너비 */
+}
+
+#chatLog ul::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* 스크롤바 트랙 배경색 */
+  border-radius: 10px;
+  /* 트랙 모서리 둥글게 */
+}
+
+#chatLog ul::-webkit-scrollbar-thumb {
+  background: #888;
+  /* 스크롤바 색상 */
+  border-radius: 10px;
+  /* 스크롤바 모서리 둥글게 */
+}
+
+#chatLog ul::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* 스크롤바 호버 시 색상 */
+}
+
+/* (선택 사항) 스크롤 코너 스타일 */
+#chatLog ul::-webkit-scrollbar-corner {
+  background: #f1f1f1;
+  /* 코너 배경색 */
+}
+
+#chatLog li.system-message {
+  color: #777; /* 글자색 연하게 */
+  font-style: italic; /* 기울임꼴 */
+  text-align: center; /* 중앙 정렬 (선택 사항) */
+  border-bottom: none; /* 구분선 없앰 (선택 사항) */
+}
+
+/* 각 유저별 메시지 영역 스타일 (모던한 색상/그림자 적용) */
+.userMessage {
+  border: 1px solid #ddd;
+  /* 연한 회색 테두리 */
+  padding: 15px;
+  margin: 10px;
+  text-align: center;
+  /* 텍스트 중앙 정렬 */
+  background-color: #FFFFFF;
+  /* 흰색 배경 */
+  border-radius: 12px;
+  /* 둥글게 만듦 */
+  max-width: 280px;
+  /* 최대 너비 좀 늘림 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  /* 은은한 그림자 */
+  display: flex;
+  /* 내부 요소 (닉네임, 메시지) 배치용 */
+  flex-direction: column;
+  /* 세로 방향으로 배치 */
+  justify-content: center;
+  /* 세로 중앙 정렬 */
+  align-items: center;
+  /* 가로 중앙 정렬 */
+  transition: transform 0.2s ease-in-out;
+  /* 호버/활성화 시 애니메이션 효과 */
+}
+
+.userMessage:hover {
+  transform: translateY(-5px);
+  /* 호버 시 살짝 위로 */
+}
+
+
+.userMessage h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  /* 닉네임 아래 간격 */
+  color: #222;
+  /* 닉네임 색상 진하게 */
+  font-size: 1.3em;
+  /* 닉네임 글자 크기 */
+}
+
+.userMessage p {
+  margin: 0;
+  color: #555;
+  /* 메시지 색상 */
+  word-break: break-word;
+  /* 긴 단어 자동 줄바꿈 */
+  font-size: 1em;
+  line-height: 1.4;
+  /* 줄 간격 */
+}
+
+
+/* 하단 입력 폼 스타일 (어두운 계열 색상) */
+form {
+  background: #2C3E50;
+  /* 어두운 청회색 배경 */
+  padding: 15px;
+  /* 패딩 늘림 */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  /* 플렉스 박스로 배치 */
+  gap: 10px;
+  /* 입력창과 버튼 사이 간격 늘림 */
+  box-sizing: border-box;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  /* 위쪽 그림자 */
+}
+
+form input {
+  border: none;
+  /* 테두리 없앰 */
+  padding: 12px;
+  /* 패딩 조절 */
+  flex-grow: 1;
+  /* 남은 공간 채우기 */
+  font-size: 1em;
+  border-radius: 4px;
+  background-color: #34495E;
+  /* 입력창 배경색 */
+  color: #ECF0F1;
+  /* 입력 글자색 밝게 */
+  outline: none;
+  /* 포커스 시 기본 외곽선 제거 */
+}
+
+form input::placeholder {
+  color: #BDC3C7;
+  /* 플레이스홀더 색상 */
+}
+
+form button {
+  width: auto;
+  /* 너비 자동 */
+  background: #3498DB;
+  /* 산뜻한 파란색 버튼 */
+  border: none;
+  padding: 12px 20px;
+  /* 좌우 패딩 조절 */
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 4px;
+  color: #FFFFFF;
+  /* 버튼 글자색 흰색 */
+  transition: background-color 0.2s ease-in-out;
+  /* 호버 애니메이션 */
+}
+
+form button:hover {
+  background-color: #2980B9;
+  /* 호버 시 어두운 파란색 */
+}
+
+
+/* 닉네임 입력 영역 스타일 */
+#nicknameArea {
+  position: fixed;
+  /* 화면 중앙 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(248, 248, 248, 0.95);
+  /* 배경색에 맞춘 반투명 오버레이 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  /* 다른 요소 위에 표시 */
+}
+
+#nicknameArea div {
+  background: #fff;
+  padding: 40px;
+  /* 패딩 늘림 */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  /* 은은한 그림자 */
+  text-align: center;
+}
+
+#nicknameArea h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  /* 아래 간격 늘림 */
+  color: #333;
+}
+
+#nicknameArea input {
+  padding: 12px;
+  /* 패딩 조절 */
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  outline: none;
+}
+
+#nicknameArea button {
+  padding: 12px 20px;
+  /* 패딩 조절 */
+  background: #3498DB;
+  /* 버튼 색상 통일 */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #FFFFFF;
+  transition: background-color 0.2s ease-in-out;
+  /* 호버 애니메이션 */
+}
+
+#nicknameArea button:hover {
+  background-color: #2980B9;
+  /* 호버 시 어두운 파란색 */
+}
+
+
+/* (선택 사항) 유저 접속/퇴장 알림 스타일 */
+/* JS에서 이 클래스를 가진 요소를 동적으로 생성해서 사용할 수 있음 */
+.status-message {
+  position: fixed;
+  bottom: 80px;
+  /* 폼 바로 위 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  z-index: 5;
+  /* 채팅 영역 위, 닉네임 영역 아래 */
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.status-message.hidden {
+  opacity: 0;
+  pointer-events: none;
+  /* 클릭 방지 */
+}
